@@ -19,14 +19,14 @@ library(genmediation)
 ## Overview
 
 `genmediation` wraps a lavaan structural equation model that estimates how
-**maternal polygenic risk scores (PRS)** for depression mediate the path from
-genetic liability to **child internalising problems**, through longitudinal
-observed maternal depression.
+**maternal polygenic risk scores (PRS)** for a specific trait mediate the path from
+genetic liability to **child trait of interest **, through longitudinal
+observed maternal trait.
 
 The analysis follows three steps:
 
 1. **Prepare data** — Z-score standardise PRS variables.  
-2. **Build model** — Generate lavaan syntax for MDD or PPD.  
+2. **Build model** — Generate lavaan syntax for interested polygenic risk score.  
 3. **Fit & extract** — Run the SEM and pull indirect/total effects.
 
 ---
