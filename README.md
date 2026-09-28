@@ -5,7 +5,7 @@
 `genmediation` wraps lavaan-based structural equation models to estimate how
 parental polygenic risk scores (PRS) for specific trait mediate the association
 between genetic liability and child trait, through
-longitudinal observed maternal depression.
+longitudinal observed maternal trait.
 
 ---
 
