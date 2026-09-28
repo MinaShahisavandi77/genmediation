@@ -3,8 +3,8 @@
 **Genetic Mediation Analysis via Longitudinal SEM**
 
 `genmediation` wraps lavaan-based structural equation models to estimate how
-parental polygenic risk scores (PRS) for depression mediate the association
-between genetic liability and child internalising problems, through
+parental polygenic risk scores (PRS) for specific trait mediate the association
+between genetic liability and child trait, through
 longitudinal observed maternal depression.
 
 ---
