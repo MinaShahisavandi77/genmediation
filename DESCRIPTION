@@ -1,0 +1,24 @@
+Package: genmediation
+Title: Genetic Mediation Analysis via Longitudinal SEM
+Version: 0.1.0
+Authors@R: 
+    person("M.", "Shahisavandi", email = "m.shahisavandi@erasmusmc.nl",
+           role = c("aut", "cre"))
+Description: Fits structural equation models (SEM) to estimate genetic
+    mediation of polygenic risk scores (PRS) on child outcomes through
+    longitudinal parental depression. The package wraps lavaan-based models
+    for PRS with bootstrap inference and provides helpers for
+    data preparation, model fitting, and result extraction.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Imports:
+    lavaan (>= 0.6-12),
+    methods
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+Config/roxygen2/version: 8.1.0

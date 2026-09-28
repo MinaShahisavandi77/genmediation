@@ -1,0 +1,133 @@
+---
+title: "Genetic Mediation Analysis with genmediation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Genetic Mediation Analysis with genmediation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment  = "#>",
+  eval     = FALSE   # set TRUE when real data are available
+)
+library(genmediation)
+```
+
+## Overview
+
+`genmediation` wraps a lavaan structural equation model that estimates how
+**maternal polygenic risk scores (PRS)** for depression mediate the path from
+genetic liability to **child internalising problems**, through longitudinal
+observed maternal depression.
+
+The analysis follows three steps:
+
+1. **Prepare data** — Z-score standardise PRS variables.  
+2. **Build model** — Generate lavaan syntax for MDD or PPD.  
+3. **Fit & extract** — Run the SEM and pull indirect/total effects.
+
+---
+
+## Step 1 — Load and prepare data
+
+```{r load-data}
+library(genmediation)
+
+df <- read.csv("path/to/dataset_genr3_3y.csv")
+
+# Z-score the MDD PRS columns
+df <- prepare_prs_data(df, prs_type = "MDD")
+
+# Verify
+summary(df[c("prs_qc_MDD", "prs_qc_MDD_m", "prs_qc_MDD_f")])
+```
+
+---
+
+## Step 2 — Inspect the model syntax (optional)
+
+```{r model-string}
+model_syntax <- build_mdd_model()
+cat(model_syntax)
+```
+
+You can customise the outcome variable or depression timepoints:
+
+```{r custom-model}
+custom_model <- build_mdd_model(
+  outcome    = "h_c_extern_1_5y",     # swap outcome
+  dep_vars   = c(pre  = "dep_pre_m",
+                 t2m  = "dep_2m_m",
+                 t6m  = "dep_6m_m",
+                 t36m = "dep_36m_m"),
+  covariates = c("h_m_age", "h_c_sex", "h_c_age_1_5y")
+)
+```
+
+---
+
+## Step 3 — Fit the model
+
+```{r fit}
+fit <- run_genetic_mediation(
+  data      = df,
+  prs_type  = "MDD",
+  bootstrap = 5000   # reduce to ~200 for quick testing
+)
+```
+
+---
+
+## Step 4 — Examine results
+
+### Lavaan summary
+
+```{r summary}
+print_sem_summary(fit)
+```
+
+### Indirect effects only
+
+```{r indirect}
+indirect <- extract_indirect_effects(fit)
+print(indirect)
+```
+
+### Full tidy parameter table
+
+```{r tidy}
+all_params <- tidy_sem_results(fit)
+head(all_params)
+
+# Export
+write.csv(all_params, "sem_mdd_results.csv", row.names = FALSE)
+```
+
+---
+
+## PPD model
+
+Simply switch `prs_type`:
+
+```{r ppd}
+df_ppd <- prepare_prs_data(df, prs_type = "PPD")
+
+fit_ppd <- run_genetic_mediation(
+  data     = df_ppd,
+  prs_type = "PPD",
+  bootstrap = 5000
+)
+
+extract_indirect_effects(fit_ppd)
+```
+
+---
+
+## Session info
+
+```{r session}
+sessionInfo()
+```

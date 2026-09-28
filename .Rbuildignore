@@ -1,0 +1,7 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.github$
+^vignettes/.*\.html$
+^push_to_github\.R$
+^push_to_github\.sh$
+^\.gitignore$
