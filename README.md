@@ -47,17 +47,7 @@ genmediation/
 
 ---
 
-## Key functions
 
-| Function | Purpose |
-|---|---|
-| `prepare_prs_data()` | Z-score PRS columns |
-| `build_mdd_model()` | Build lavaan syntax for MDD model |
-| `build_ppd_model()` | Build lavaan syntax for PPD model |
-| `run_genetic_mediation()` | Fit SEM with bootstrap SE |
-| `extract_indirect_effects()` | Pull indirect/total effects |
-| `tidy_sem_results()` | All parameters as a tidy data frame |
-| `print_sem_summary()` | Formatted lavaan summary |
 
 ---
 
