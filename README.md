@@ -14,7 +14,7 @@ longitudinal observed maternal depression.
 ```r
 # Install from GitHub
 # install.packages("pak")
-pak::pak("<your-github-username>/genmediation")
+pak::pak("MinaShahisavandi77/genmediation")
 
 # Install from a local source directory
 install.packages("path/to/genmediation", repos = NULL, type = "source")
@@ -22,31 +22,6 @@ install.packages("path/to/genmediation", repos = NULL, type = "source")
 # Or with devtools
 # install.packages("devtools")
 devtools::install_local("path/to/genmediation")
-```
-
----
-
-## Quick start
-
-```r
-library(genmediation)
-
-# 1. Load and Z-score PRS variables
-df  <- read.csv("dataset.csv")
-df  <- prepare_prs_data(df, prs_type = "MDD")
-
-# 2. Fit the SEM (bootstrap = 200 for a quick test)
-fit <- run_genetic_mediation(df, prs_type = "MDD", bootstrap = 200)
-
-# 3. Inspect results
-print_sem_summary(fit)
-
-# 4. Extract indirect / total effects as a data frame
-extract_indirect_effects(fit)
-
-# 5. Full tidy parameter table (for export)
-results <- tidy_sem_results(fit)
-write.csv(results, "mdd_sem_results.csv", row.names = FALSE)
 ```
 
 ---
