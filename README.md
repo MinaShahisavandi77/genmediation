@@ -24,8 +24,6 @@ install.packages("path/to/genmediation", repos = NULL, type = "source")
 devtools::install_local("path/to/genmediation")
 ```
 
----
-
 ## Package structure
 
 ```
@@ -49,11 +47,7 @@ genmediation/
 
 
 
----
-
 ## Citation
 
-If you use this package, please cite the underlying lavaan package:
 
-> Rosseel, Y. (2012). lavaan: An R Package for Structural Equation Modeling.
-> *Journal of Statistical Software*, 48(2), 1–36.
+

@@ -6,7 +6,7 @@ Authors@R:
            role = c("aut", "cre"))
 Description: Fits structural equation models (SEM) to estimate genetic
     mediation of polygenic risk scores (PRS) on child outcomes through
-    longitudinal parental depression. The package wraps lavaan-based models
+    longitudinal parental specific trait. The package wraps lavaan-based models
     for PRS with bootstrap inference and provides helpers for
     data preparation, model fitting, and result extraction.
 License: MIT + file LICENSE
