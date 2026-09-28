@@ -12,7 +12,7 @@ tidy_sem_results(
 )
 }
 \arguments{
-\item{fit}{A \code{lavaan} object returned by \code{\link[=run_genetic_mediation]{run_genetic_mediation()}} or
+\item{fit}{A \code{lavaan} object returned by \code{\link[=run_mediation]{run_mediation()}} or
 \code{\link[lavaan:sem]{lavaan::sem()}}.}
 
 \item{ci_level}{Numeric. Confidence level for bootstrap CIs. Default \code{0.95}.}
@@ -35,7 +35,7 @@ further processing or export.
 }
 \examples{
 \dontrun{
-fit    <- run_genetic_mediation(df, prs_type = "MDD", bootstrap = 500)
+fit    <- run_mediation(df, prs_type = "MDD", bootstrap = 500)
 result <- tidy_sem_results(fit)
 write.csv(result, "sem_results.csv", row.names = FALSE)
 }

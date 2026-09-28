@@ -5,7 +5,7 @@
 #' only the defined (`:=`) indirect and total effect parameters, and returns
 #' them as a tidy data frame with bootstrap confidence intervals.
 #'
-#' @param fit A `lavaan` object returned by [run_genetic_mediation()] or
+#' @param fit A `lavaan` object returned by [run_mediation()] or
 #'   [lavaan::sem()].
 #' @param ci_level Numeric. Confidence level for bootstrap CIs. Default `0.95`.
 #' @param boot_ci_type Character. Bootstrap CI type passed to
@@ -25,7 +25,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' fit <- run_genetic_mediation(df, prs_type = "MDD", bootstrap = 500)
+#' fit <- run_mediation(df, prs_type = "MDD", bootstrap = 500)
 #' extract_indirect_effects(fit)
 #' }
 #'
@@ -77,7 +77,7 @@ extract_indirect_effects <- function(fit,
 #'
 #' @examples
 #' \dontrun{
-#' fit    <- run_genetic_mediation(df, prs_type = "MDD", bootstrap = 500)
+#' fit    <- run_mediation(df, prs_type = "MDD", bootstrap = 500)
 #' result <- tidy_sem_results(fit)
 #' write.csv(result, "sem_results.csv", row.names = FALSE)
 #' }
@@ -122,17 +122,17 @@ tidy_sem_results <- function(fit,
 #' Print a formatted summary of a genetic mediation fit
 #'
 #' @description
-#' Convenience wrapper around [lavaan::summary()] with sensible defaults for
+#' Convenience wrapper around `lavaan::summary()` with sensible defaults for
 #' this package (standardised estimates, fit measures, bootstrap CIs).
 #'
 #' @param fit A `lavaan` object.
-#' @param ... Additional arguments passed to [lavaan::summary()].
+#' @param ... Additional arguments passed to `lavaan::summary()`.
 #'
 #' @return Invisibly returns `fit`. Called for its side-effect of printing.
 #'
 #' @examples
 #' \dontrun{
-#' fit <- run_genetic_mediation(df, prs_type = "MDD", bootstrap = 500)
+#' fit <- run_mediation(df, prs_type = "MDD", bootstrap = 500)
 #' print_sem_summary(fit)
 #' }
 #'
@@ -155,6 +155,6 @@ print_sem_summary <- function(fit, ...) {
 # ----------------------------------------------------------------------
 .check_lavaan <- function(fit) {
   if (!methods::is(fit, "lavaan")) {
-    stop("`fit` must be a lavaan object returned by run_genetic_mediation().")
+    stop("`fit` must be a lavaan object returned by run_mediation().")
   }
 }

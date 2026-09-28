@@ -7,7 +7,7 @@
 extract_indirect_effects(fit, ci_level = 0.95, boot_ci_type = "perc")
 }
 \arguments{
-\item{fit}{A \code{lavaan} object returned by \code{\link[=run_genetic_mediation]{run_genetic_mediation()}} or
+\item{fit}{A \code{lavaan} object returned by \code{\link[=run_mediation]{run_mediation()}} or
 \code{\link[lavaan:sem]{lavaan::sem()}}.}
 
 \item{ci_level}{Numeric. Confidence level for bootstrap CIs. Default \code{0.95}.}
@@ -35,7 +35,7 @@ them as a tidy data frame with bootstrap confidence intervals.
 }
 \examples{
 \dontrun{
-fit <- run_genetic_mediation(df, prs_type = "MDD", bootstrap = 500)
+fit <- run_mediation(df, prs_type = "MDD", bootstrap = 500)
 extract_indirect_effects(fit)
 }
 

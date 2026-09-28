@@ -9,18 +9,18 @@ print_sem_summary(fit, ...)
 \arguments{
 \item{fit}{A \code{lavaan} object.}
 
-\item{...}{Additional arguments passed to \code{\link[lavaan:summary]{lavaan::summary()}}.}
+\item{...}{Additional arguments passed to \code{lavaan::summary()}.}
 }
 \value{
 Invisibly returns \code{fit}. Called for its side-effect of printing.
 }
 \description{
-Convenience wrapper around \code{\link[lavaan:summary]{lavaan::summary()}} with sensible defaults for
+Convenience wrapper around \code{lavaan::summary()} with sensible defaults for
 this package (standardised estimates, fit measures, bootstrap CIs).
 }
 \examples{
 \dontrun{
-fit <- run_genetic_mediation(df, prs_type = "MDD", bootstrap = 500)
+fit <- run_mediation(df, prs_type = "MDD", bootstrap = 500)
 print_sem_summary(fit)
 }
 

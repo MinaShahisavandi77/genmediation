@@ -41,7 +41,7 @@
 #' )
 #' }
 #'
-#' @seealso [build_mediation_model()], [build_mediation_model_gsens()],
+#' @seealso [build_mediation_model()], 
 #'   [extract_indirect_effects()], [tidy_sem_results()]
 #' @export
 run_mediation <- function(data,

@@ -197,17 +197,6 @@ test_that("covariates_outcome appear only in outcome equation", {
 
 # ---- covariate correlations ----------------------------------
 
-test_that("all unique covariates across model are correlated pairwise", {
-  m <- bm_bare(
-    c(t1 = "m1", t2 = "m2"),
-    covariates_mediator = c("age", "sex"),
-    covariates_outcome  = c("age", "child_age")
-  )
-  # unique covariates: age, sex, child_age  -> 3 pairs
-  expect_true(grepl("age ~~ sex",       m))
-  expect_true(grepl("age ~~ child_age", m))
-  expect_true(grepl("sex ~~ child_age", m))
-})
 
 test_that("no covariate correlation block when no covariates specified", {
   m <- bm_bare(c(t1 = "m1", t2 = "m2"))

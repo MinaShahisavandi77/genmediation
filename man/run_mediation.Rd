@@ -65,6 +65,6 @@ fit_boot <- run_mediation(
 
 }
 \seealso{
-\code{\link[=build_mediation_model]{build_mediation_model()}}, \code{\link[=build_mediation_model_gsens]{build_mediation_model_gsens()}},
+\code{\link[=build_mediation_model]{build_mediation_model()}},
 \code{\link[=extract_indirect_effects]{extract_indirect_effects()}}, \code{\link[=tidy_sem_results]{tidy_sem_results()}}
 }
