@@ -16,6 +16,9 @@ longitudinal observed maternal trait.
 # install.packages("pak")
 pak::pak("MinaShahisavandi77/genmediation")
 
+#install.packages("remotes")
+   remotes::install_github("MinaShahisavandi77/genmediation")
+
 # Install from a local source directory
 install.packages("path/to/genmediation", repos = NULL, type = "source")
 
