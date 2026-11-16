@@ -46,11 +46,14 @@
 #' @export
 run_mediation <- function(data,
                           model,
-                          se        = "robust",
+                          se        = c("robust", "standard", "bootstrap"),
                           bootstrap = 1000L,
-                          missing   = "fiml",
+                          missing   = "fiml.x",
+                          cluster   = NULL,
                           seed      = NULL,
                           ...) {
+  
+  se <- match.arg(se)
   
   # ---- input checks --------------------------------------------------------
   if (!is.data.frame(data))
@@ -59,23 +62,42 @@ run_mediation <- function(data,
     stop("`model` must be a single character string of lavaan syntax.")
   if (!is.null(seed)) set.seed(seed)
   
-  if (se == "bootstrap" && missing == "fiml")
-    stop("FIML is not compatible with bootstrap SEs. Use se = 'standard' with missing = 'fiml', or se = 'bootstrap' with missing = 'listwise'.")
+  if (!is.null(cluster)) {
+    if (!is.character(cluster) || length(cluster) != 1L)
+      stop("`cluster` must be a single column name.")
+    if (!cluster %in% names(data))
+      stop(sprintf("Cluster variable '%s' not found in `data`.", cluster))
+    if (anyNA(data[[cluster]]))
+      stop(sprintf("Cluster variable '%s' has missing values; give every row a cluster ID.", cluster))
+    if (se == "bootstrap")
+      stop("lavaan's bootstrap resamples individuals, not clusters. ",
+           "Use se = 'robust' (cluster-robust SEs) with `cluster`.")
+  }
+  
+  # ---- translate se option -------------------------------------------------
+  lav_se <- switch(se,
+                   robust    = if (is.null(cluster)) "robust.huber.white" else "robust.cluster",
+                   standard  = "standard",
+                   bootstrap = "bootstrap"
+  )
   
   message(sprintf(
-    "Fitting SEM with se = '%s', missing = '%s'%s ...",
-    se, missing,
+    "Fitting SEM with se = '%s', missing = '%s'%s%s ...",
+    lav_se, missing,
+    if (!is.null(cluster)) paste0(", cluster = '", cluster, "'") else "",
     if (se == "bootstrap") paste0(", bootstrap = ", bootstrap) else ""
   ))
   
   sem_args <- list(
     model   = model,
     data    = data,
-    se      = se,
+    se      = lav_se,
     missing = missing,
     ...
   )
-  if (se == "bootstrap") sem_args$bootstrap <- bootstrap
+  if (se == "robust")      sem_args$test      <- "yuan.bentler.mplus"  # robust chi-square (as MLR)
+  if (!is.null(cluster))   sem_args$cluster   <- cluster
+  if (se == "bootstrap")   sem_args$bootstrap <- bootstrap
   
   do.call(lavaan::sem, sem_args)
 }
