@@ -8,10 +8,16 @@
 #'   (see [standardise_vars()]).
 #' @param model Character scalar. lavaan model syntax string, typically from
 #'   [build_mediation_model()].
-#' @param se Character. SE method passed to [lavaan::sem()]. Default
-#'   `"standard"`.
-#' @param bootstrap Integer. Number of bootstrap draws. Default `1000`.
-#' @param missing Character. Missing data handling. Default `"fiml"`.
+#' @param se Character. Standard error method. One of `"robust"` (default;
+#'   Huber-White SEs with a Yuan-Bentler scaled test, or cluster-robust SEs
+#'   when `cluster` is supplied), `"standard"`, or `"bootstrap"`.
+#' @param bootstrap Integer. Number of bootstrap draws when
+#'   `se = "bootstrap"`. Default `1000`.
+#' @param missing Character. Missing data handling passed to
+#'   [lavaan::sem()]. Default `"fiml.x"`.
+#' @param cluster Character or `NULL`. Name of a column in `data` identifying
+#'   clusters (e.g. families). When supplied, cluster-robust standard errors
+#'   are used. Cannot be combined with `se = "bootstrap"`. Default `NULL`.
 #' @param seed Integer or `NULL`. If supplied, sets the random seed for
 #'   reproducible bootstrap draws. Default `NULL`.
 #' @param ... Additional arguments forwarded to [lavaan::sem()].
@@ -20,7 +26,6 @@
 #'
 #' @examples
 #' \dontrun{
-#' # Standard errors with FIML (recommended default)
 #' model <- build_mediation_model(
 #'   outcome       = "child_outcome",
 #'   mediator_vars = c(w1 = "med_w1", w2 = "med_w2"),
@@ -28,7 +33,12 @@
 #'   prs_parent1   = "prs_p1",
 #'   prs_parent2   = "prs_p2"
 #' )
+#'
+#' # Robust SEs with FIML (default)
 #' fit <- run_mediation(data = df, model = model)
+#'
+#' # Cluster-robust SEs for related individuals
+#' fit_clus <- run_mediation(data = df, model = model, cluster = "family_id")
 #'
 #' # Bootstrap CIs for indirect effects (requires listwise deletion)
 #' fit_boot <- run_mediation(
@@ -41,7 +51,7 @@
 #' )
 #' }
 #'
-#' @seealso [build_mediation_model()], 
+#' @seealso [build_mediation_model()], [build_mediation_model_gsens()],
 #'   [extract_indirect_effects()], [tidy_sem_results()]
 #' @export
 run_mediation <- function(data,
@@ -101,3 +111,8 @@ run_mediation <- function(data,
   
   do.call(lavaan::sem, sem_args)
 }
+
+
+
+
+
