@@ -9,7 +9,8 @@ run_mediation(
   model,
   se = "robust",
   bootstrap = 1000L,
-  missing = "fiml",
+  missing = "fiml.x",
+  cluster = NULL,
   seed = NULL,
   ...
 )
